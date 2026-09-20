@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e63950"><title>FoodHub — Fresh Food Delivered</title>
+<meta name="description" content="Order biryani, momo, chowmein and rolls online. Fresh food, fast local delivery — cash on delivery or online payment available on FoodHub.">
+<meta property="og:title" content="FoodHub — Fresh Food Delivered">
+<meta property="og:description" content="Fresh favourites, easy ordering and fast local delivery.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽️</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--red:#e63950;--red-dark:#7a1224;--yellow:#ffc93c;--dark:#18181b;--muted:#6b7280;--bg:#f7f7f8;--line:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--dark)}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}.header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:28px;font-weight:850;color:var(--red);letter-spacing:-1px}.cart-btn{background:var(--red);color:#fff;padding:12px 17px;border-radius:28px;font-weight:800}
+.hero{background:linear-gradient(135deg,#fff4f5,#fff);padding:42px 18px 34px}.wrap{max-width:1100px;margin:auto}
+.hero h1{font-size:clamp(34px,7vw,62px);line-height:1.02;margin:0 0 12px;letter-spacing:-2px}.hero h1 span{color:var(--red)}.hero p{font-size:18px;color:var(--muted);margin:0 0 24px}
+.search{display:flex;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px #0000000d}.search input{flex:1;border:0;outline:0;padding:17px;font-size:17px;min-width:0}.search button{width:62px;background:var(--red);color:#fff;font-size:22px}
+.section{padding:30px 18px}.section h2{font-size:30px;margin:0 0 18px;letter-spacing:-.8px}.cats{display:flex;gap:12px;overflow:auto;padding-bottom:5px}
+.cat{min-width:112px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px 12px;text-align:center;font-weight:750}.cat.active{background:var(--red);color:#fff;border-color:var(--red)}.cat .emoji{font-size:28px;display:block;margin-bottom:6px}
+.offer{background:#1d1d1f;color:#fff;border-radius:24px;padding:24px;margin:0 18px 8px;max-width:1100px;margin-left:auto;margin-right:auto}.offer strong{color:#ffd21c}.offer .small{color:#ddd;margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.food{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:0 8px 24px #00000009;display:flex;flex-direction:column}.food img{width:100%;height:205px;object-fit:cover;background:#eee}.food-body{padding:17px;display:flex;flex-direction:column;gap:9px;flex:1}.food h3{margin:0;font-size:20px}.rating{color:#16834a;font-size:14px}.price-row{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:7px}.price{font-size:24px;font-weight:850}.add{background:var(--red);color:#fff;padding:11px 17px;border-radius:12px;font-weight:850}.empty{display:none;text-align:center;color:var(--muted);padding:30px}
+footer{background:#202020;color:#fff;text-align:center;padding:38px 18px;margin-top:25px}footer h2{margin:0 0 7px}
+.overlay{display:none;position:fixed;inset:0;background:#0009;z-index:50;padding:15px;align-items:flex-end;justify-content:center}.modal{background:#fff;width:min(620px,100%);max-height:92vh;overflow:auto;border-radius:26px;padding:22px;position:relative}.close{position:absolute;right:18px;top:15px;background:#f2f2f2;border-radius:50%;width:38px;height:38px;font-size:22px}.modal h2{margin:0 45px 18px 0}
+.cart-item{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.cart-item img{width:58px;height:58px;border-radius:12px;object-fit:cover}.qty{display:flex;align-items:center;gap:9px}.qty button{width:30px;height:30px;border-radius:9px;background:#eee;font-weight:900}
+.form{display:grid;gap:11px;margin-top:15px}.form input,.form textarea,.form select{width:100%;border:1px solid #d9dce1;border-radius:12px;padding:13px;outline:0;background:#fff}.form textarea{min-height:85px;resize:vertical}
+.summary{margin-top:15px;padding-top:12px;border-top:1px solid var(--line)}.sumrow{display:flex;justify-content:space-between;padding:5px 0}.total{font-size:20px;font-weight:900}
+.pay-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.pay{border:2px solid #e5e7eb;background:#fff;border-radius:12px;padding:12px;font-weight:800}.pay.selected{border-color:var(--red);background:#fff3f4}
+.primary{width:100%;background:var(--red);color:#fff;border-radius:13px;padding:14px;font-weight:900;margin-top:14px}.whatsapp{width:100%;background:#16c65b;color:#fff;border-radius:13px;padding:14px;font-weight:900;margin-top:9px}
+.qrbox{text-align:center;background:#f7f7f8;border-radius:18px;padding:18px;margin-top:15px}.qrbox .qr-render{display:inline-block;background:#fff;padding:10px;border-radius:12px}.upi-note{color:var(--muted);font-size:13px}
+.site-qr{max-width:1100px;margin:0 auto 8px;padding:0 18px}.site-qr .card{background:#fff;border-radius:24px;padding:28px 22px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 24px #00000009;border:1px solid var(--line)}
+.site-qr .card::before{content:"";position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:var(--yellow);opacity:.9}
+.site-qr h3{margin:0 0 4px;font-size:20px;letter-spacing:-.4px}.site-qr p{margin:0 0 16px;color:var(--muted);font-size:14px}
+.site-qr .qr-render{position:relative;z-index:1;display:inline-block;padding:14px;background:#fff;border:3px solid var(--yellow);border-radius:16px;box-shadow:0 0 0 6px #ffe4e8}
+.site-qr .url-chip{position:relative;z-index:1;display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;color:#fff;background:var(--red);padding:8px 16px;border-radius:999px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.food img{height:190px}}@media(max-width:560px){.grid{grid-template-columns:1fr}.food img{height:220px}}
+</style></head>
+<body>
+<header class="header"><div class="logo">FoodHub</div><button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button></header>
+<section class="hero"><div class="wrap"><h1>Hungry? Get <span>Food</span> Delivered.</h1><p>Fresh favourites, easy ordering and fast local delivery.</p>
+<div class="search"><input id="search" placeholder="Search biryani, momo, chowmein, roll..." oninput="renderFoods()"><button onclick="document.getElementById('search').focus()">🔎</button></div></div></section>
+<section class="section"><div class="wrap"><h2>What's on your mind?</h2><div class="cats">
+<button class="cat active" data-cat="All" onclick="setCat('All')"><span class="emoji">🍽️</span>All</button>
+<button class="cat" data-cat="Biryani" onclick="setCat('Biryani')"><span class="emoji">🍛</span>Biryani</button>
+<button class="cat" data-cat="Momo" onclick="setCat('Momo')"><span class="emoji">🥟</span>Momo</button>
+<button class="cat" data-cat="Chowmein" onclick="setCat('Chowmein')"><span class="emoji">🍜</span>Chowmein</button>
+<button class="cat" data-cat="Roll" onclick="setCat('Roll')"><span class="emoji">🌯</span>Rolls</button>
+</div></div></section>
+<div class="offer">🔥 <b>Welcome to FoodHub</b><div class="small">Order your favourites directly. <strong>Simple • Fresh • Local</strong></div></div>
+<section class="section"><div class="wrap"><h2>Popular Food</h2><div id="foodGrid" class="grid"></div><div id="empty" class="empty">No food found.</div></div></section>
+<section class="site-qr"><div class="card">
+<h3>Scan to order</h3><p>Point your camera here to open FoodHub on your phone.</p>
+<div id="siteQr" class="qr-render"></div>
+<div class="url-chip">arvahhills.com</div>
+</div></section>
+<footer><h2>FoodHub</h2><div>Delicious food. Delivered to your door.</div><div style="margin-top:12px;color:#aaa">© 2026 FoodHub</div></footer>
+
+<div id="cartOverlay" class="overlay"><div class="modal"><button class="close" onclick="closeModal('cartOverlay')">×</button><h2>Your Cart</h2><div id="cartList"></div><div id="cartSummary"></div><button class="primary" onclick="openCheckout()">Proceed to Checkout</button></div></div>
+<div id="checkoutOverlay" class="overlay"><div class="modal"><button class="close" onclick="closeModal('checkoutOverlay')">×</button><h2>Checkout</h2>
+<div class="form"><input id="name" placeholder="Full name"><input id="phone" inputmode="tel" placeholder="Phone number"><textarea id="address" placeholder="Full delivery address"></textarea>
+<select id="slot"></select><div><b>Payment method</b><div class="pay-options"><button id="codBtn" class="pay selected" onclick="selectPay('COD')">💵 Cash on Delivery</button><button id="upiBtn" class="pay" onclick="selectPay('UPI')">📲 Online / UPI</button></div></div>
+<div id="qrArea" class="qrbox" style="display:none"><b>Scan to open FoodHub</b><br><div id="checkoutQr" class="qr-render" style="margin-top:10px"></div><div class="upi-note">Note: this embedded QR opens the website. For real UPI payment collection, use your merchant UPI QR/payment gateway.</div></div></div>
+<div id="checkoutSummary" class="summary"></div><button class="primary" onclick="placeOrder()">Place Order</button><button class="whatsapp" onclick="orderWhatsApp()">💬 Order on WhatsApp</button></div></div>
+
+<script>
+const foods=[
+{id:1,name:"Chicken Biryani",price:199,cat:"Biryani",rating:"4.7",img:"https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=900&q=85"},
+{id:2,name:"Veg Biryani",price:149,cat:"Biryani",rating:"4.5",img:"https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=900&q=85"},
+{id:3,name:"Chicken Momo",price:99,cat:"Momo",rating:"4.8",img:"https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=900&q=85"},
+{id:4,name:"Veg Momo",price:70,cat:"Momo",rating:"4.6",img:"https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=900&q=85"},
+{id:5,name:"Chicken Chowmein",price:120,cat:"Chowmein",rating:"4.6",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=85"},
+{id:6,name:"Veg Chowmein",price:99,cat:"Chowmein",rating:"4.4",img:"https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=900&q=85"},
+{id:7,name:"Egg Roll",price:99,cat:"Roll",rating:"4.5",img:"https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=85"},
+
+{id:9,name:"Chicken Egg Roll",price:129,cat:"Roll",rating:"4.7",img:"https://images.unsplash.com/photo-1606850780554-b55ea4dd0b70?auto=format&fit=crop&w=900&q=85"}];
+let cart={},category="All",payment="COD";
+const SITE_URL="https://arvahhills.com/";
+new QRCode(document.getElementById("siteQr"),{text:SITE_URL,width:180,height:180,colorDark:"#7a1224",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+new QRCode(document.getElementById("checkoutQr"),{text:SITE_URL,width:180,height:180,colorDark:"#7a1224",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+function money(n){return "₹"+n.toLocaleString("en-IN")}
+function renderFoods(){const q=document.getElementById("search").value.toLowerCase().trim();const list=foods.filter(f=>(category==="All"||f.cat===category)&&f.name.toLowerCase().includes(q));document.getElementById("foodGrid").innerHTML=list.map(f=>`<article class="food"><img src="${f.img}" alt="${f.name}" onerror="this.style.display='none'"><div class="food-body"><h3>${f.name}</h3><div class="rating">★ ${f.rating} · 30–40 min</div><div class="price-row"><div class="price">${money(f.price)}</div><button class="add" onclick="add(${f.id})">Add +</button></div></div></article>`).join("");document.getElementById("empty").style.display=list.length?"none":"block"}
+function setCat(c){category=c;document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x.dataset.cat===c));renderFoods()}
+function add(id){cart[id]=(cart[id]||0)+1;updateCount()}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updateCount();renderCart()}
+function updateCount(){document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function subtotal(){return foods.reduce((s,f)=>s+(cart[f.id]||0)*f.price,0)}
+function renderCart(){const items=foods.filter(f=>cart[f.id]);document.getElementById("cartList").innerHTML=items.length?items.map(f=>`<div class="cart-item"><img src="${f.img}" alt=""><div><b>${f.name}</b><div>${money(f.price)}</div></div><div class="qty"><button onclick="change(${f.id},-1)">−</button><b>${cart[f.id]}</b><button onclick="change(${f.id},1)">+</button></div></div>`).join(""):"<p style='color:#777'>Your cart is empty.</p>";const sub=subtotal(),del=sub?40:0;document.getElementById("cartSummary").innerHTML=`<div class="summary"><div class="sumrow"><span>Subtotal</span><b>${money(sub)}</b></div><div class="sumrow"><span>Delivery</span><b>${money(del)}</b></div><div class="sumrow total"><span>Total</span><b>${money(sub+del)}</b></div></div>`}
+function openCart(){renderCart();document.getElementById("cartOverlay").style.display="flex"}
+function closeModal(id){document.getElementById(id).style.display="none"}
+function openCheckout(){if(!subtotal()){alert("Please add food to your cart first.");return}closeModal("cartOverlay");setSlots();renderCheckout();document.getElementById("checkoutOverlay").style.display="flex"}
+function setSlots(){const s=document.getElementById("slot");const slots=["ASAP · 30–40 min","12:00 PM – 12:30 PM","1:00 PM – 1:30 PM","2:00 PM – 2:30 PM","5:00 PM – 5:30 PM","6:00 PM – 6:30 PM","7:00 PM – 7:30 PM","8:00 PM – 8:30 PM","9:00 PM – 9:30 PM"];s.innerHTML=slots.map(x=>`<option>${x}</option>`).join("")}
+function renderCheckout(){const sub=subtotal();document.getElementById("checkoutSummary").innerHTML=`<div class="sumrow"><span>Subtotal</span><b>${money(sub)}</b></div><div class="sumrow"><span>Delivery</span><b>₹40</b></div><div class="sumrow total"><span>Total</span><b>${money(sub+40)}</b></div>`}
+function selectPay(p){payment=p;document.getElementById("codBtn").classList.toggle("selected",p==="COD");document.getElementById("upiBtn").classList.toggle("selected",p==="UPI");document.getElementById("qrArea").style.display=p==="UPI"?"block":"none"}
+function orderText(){const items=foods.filter(f=>cart[f.id]).map(f=>`${f.name} x ${cart[f.id]} = ${money(f.price*cart[f.id])}`).join("\n");const sub=subtotal();return `*FoodHub New Order*\n\n${items}\n\n*Subtotal:* ${money(sub)}\n*Delivery:* ₹40\n*Total:* ${money(sub+40)}\n\n*Customer:* ${document.getElementById("name").value}\n*Phone:* ${document.getElementById("phone").value}\n*Address:* ${document.getElementById("address").value}\n*Delivery Slot:* ${document.getElementById("slot").value}\n*Payment:* ${payment}`}
+function validate(){if(!document.getElementById("name").value.trim()||!document.getElementById("phone").value.trim()||!document.getElementById("address").value.trim()){alert("Please enter full name, phone number and full delivery address.");return false}return true}
+function orderWhatsApp(){if(!validate())return;window.open("https://wa.me/916296482953?text="+encodeURIComponent(orderText()),"_blank")}
+function placeOrder(){if(!validate())return;if(payment==="UPI"){alert("After payment, please use 'Order on WhatsApp' to send the order details.");return}orderWhatsApp()}
+renderFoods();updateCount();
+</script></body></html>
